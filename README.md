@@ -12,3 +12,8 @@
 @attribute Loan_Amount_Term numeric
 @attribute Property_Area {Rural, Urban, Semiurban}
 @attribute Loan_Status {Y, N}
+
+## Installation
+1. Create Java with Ant to create Java Application 
+1. Add 2 Libs in  Lib
+ - Classifier (Ctrl+space 2 time will search in Lib)
