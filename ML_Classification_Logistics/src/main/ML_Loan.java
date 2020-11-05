@@ -5,6 +5,7 @@
  */
 package main;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,6 +65,22 @@ public class ML_Loan {
             //summary
             System.out.println(eval.toSummaryString());
            
+            //-------Part 2: Keep model to file
+            System.out.println(classifier);
+            Instances m_structure = new Instances(trainDataSet, 536);
+            m_structure.setClassIndex(trainDataSet.numAttributes()-1);
+            trainDataSet.setClassIndex(trainDataSet.numAttributes()-1);
+            int m_NumClasses = trainDataSet.numClasses();
+            int class_index = trainDataSet.classIndex();
+            int nK = m_NumClasses-1;
+            int nR = trainDataSet.numAttributes()-1;
+            //2 dimension arr
+            double[][] m_par = new double[nR+2][nK];
+            pmmlLoanModel = LogisticProducerHelper.toPMML(trainDataSet, m_structure, m_par, m_NumClasses);
+            
+            String file = "loan_model";
+            FileWriter fileW = new FileWriter(file);
+            fileW.write(pmmlLoanModel);
             
         } catch (Exception ex) {
             Logger.getLogger(ML_Loan.class.getName()).log(Level.SEVERE, null, ex);
